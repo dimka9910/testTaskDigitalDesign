@@ -99,7 +99,7 @@ class Element{
     }
 
     /**
-     * Close bracket pos long
+     * Close bracket pos int
      *
      * @param str str
      * @return the long
