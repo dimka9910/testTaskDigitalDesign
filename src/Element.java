@@ -50,8 +50,11 @@ class Element{
     public static String f(String str) {
 
         // так как строка может иметь на одном уровне несколько выражений в скобках, все элементы
-        // парсятся в list 
+        // добавляются в list
         LinkedList<Element> list = new LinkedList<>();
+
+        //так как исходная строка проверена на валидность, достаточно выполнять алгоритм
+        //до того как в оставшейся подстроке встречаются скобки
         while (str.matches(".*\\[.*].*")) {
 
             long i;
@@ -78,20 +81,24 @@ class Element{
             String postBrackets = str.substring(0,(int)i);
             str = str.substring((int)i, str.length());
 
+            //в list добавляется новый элемент, конструктор которого
+            //инициализирует поле inBrackets рекурсивно
+            //рекурсия будет продолжаться до тех пор пока имеются в строке внутри скобок другие скобки
             list.add(new Element(multiplier, preBrackets, inBrackets, postBrackets));
         }
 
         if (list.isEmpty())
             return str;
 
-        String result = "";
-
+        StringBuilder result = new StringBuilder();
         for(var v : list){
             System.out.println(v.inBrackets);
             System.out.println(v.multiplier);
-            result = result + v.preBrackets + v.inBrackets.repeat(v.multiplier) + v.postBrackets;
+            //результат складывается проходя по всем элементам list, имеющим все выражения на одном уровне
+            //поле inBracket будет иметь уже рекурсивно раскрытые выражения
+            result.append(v.preBrackets).append(v.inBrackets.repeat(v.multiplier)).append(v.postBrackets);
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -119,7 +126,7 @@ class Element{
 
     /**
      * Get result string
-     *
+     * Метод возвращаюший результат алгоритма, хранящийся в нулевом элементе
      * @return the string
      */
     public String getResult(){
