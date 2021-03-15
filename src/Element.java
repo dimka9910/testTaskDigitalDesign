@@ -10,8 +10,8 @@ class Element{
      * исходная строка, и все вложенные строки разбиваются на 4 элемента, например имея строку "ae3[bc2[s]]d5[r]"
      * preBrackets - хранит данные до скобок - "ae"
      * multiplier - хранит коэффициент перед скобками - 3
-     * inBrackets - хранит всё что внутри скобок "bc2[s]"
-     * postBrackets - значения после скобок "d" до появления следующего коэффициента
+     * inBrackets - хранит всё что внутри скобок - "bc2[s]"
+     * postBrackets - значения после скобок до появления следующего коэффициента - "d"
      */
     private int multiplier;
     private String preBrackets;
@@ -57,29 +57,29 @@ class Element{
         //до того как в оставшейся подстроке встречаются скобки
         while (str.matches(".*\\[.*].*")) {
 
-            long i;
+            int i;
 
             // парсинг строки до коэффициента
-            i = str.chars().takeWhile(c -> !Character.isDigit(c)).count();
-            String preBrackets = str.substring(0, (int) i);
-            str = str.substring((int) i, str.length());
+            i = (int)str.chars().takeWhile(c -> !Character.isDigit(c)).count();
+            String preBrackets = str.substring(0, i);
+            str = str.substring(i, str.length());
 
             // парсинг коэффициента
-            i = str.chars().takeWhile(c -> Character.isDigit(c)).count();
-            String num = str.substring(0, (int) i);
-            int multiplier = num.equals("") ? 1 : Integer.parseInt(num);
-            str = str.substring((int) i, str.length());
+            i = (int)str.chars().takeWhile(c -> Character.isDigit(c)).count();
+            String num = str.substring(0, i);
+            int multiplier = Integer.parseInt(num);
+            str = str.substring(i, str.length());
 
             // парсинг значений внутри скобок, метод closeBracketPos
             // позволяет найти позицию закрывающейся скобки
             i = closeBracketPos(str);
-            String inBrackets = str.substring(1,(int)i);
-            str = str.substring((int)i + 1, str.length());
+            String inBrackets = str.substring(1, i);
+            str = str.substring(i + 1, str.length());
 
             // парсинг строки до появления следующего коэффициента
-            i = str.chars().takeWhile(c -> !Character.isDigit(c)).count();
-            String postBrackets = str.substring(0,(int)i);
-            str = str.substring((int)i, str.length());
+            i = (int)str.chars().takeWhile(c -> !Character.isDigit(c)).count();
+            String postBrackets = str.substring(0, i);
+            str = str.substring(i, str.length());
 
             //в list добавляется новый элемент, конструктор которого
             //инициализирует поле inBrackets рекурсивно
@@ -104,7 +104,7 @@ class Element{
      * @param str str
      * @return the long
      */
-    public static long closeBracketPos(String str){
+    public static int closeBracketPos(String str){
         int pos = 0;
         int bracketsCounter = 0;
 

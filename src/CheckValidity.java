@@ -39,7 +39,7 @@ public class CheckValidity {
     }
 
     public static boolean isCoefficientsOnPlace(String str){
-        return !str.matches(".*[0-9][^\\[].*") && !str.matches(".*[^0-9]\\[.*")
+        return !str.matches(".*[0-9][^0-9\\[].*") && !str.matches(".*[^0-9]\\[.*")
                 && !str.matches("\\[.*") && !str.matches(".*[0-9]");
     }
 }
