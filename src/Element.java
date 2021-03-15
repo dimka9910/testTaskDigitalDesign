@@ -91,13 +91,10 @@ class Element{
             return str;
 
         StringBuilder result = new StringBuilder();
-        for(var v : list){
-            System.out.println(v.inBrackets);
-            System.out.println(v.multiplier);
+        for(var v : list)
+            result.append(v.preBrackets).append(v.inBrackets.repeat(v.multiplier)).append(v.postBrackets);
             //результат складывается проходя по всем элементам list, имеющим все выражения на одном уровне
             //поле inBracket будет иметь уже рекурсивно раскрытые выражения
-            result.append(v.preBrackets).append(v.inBrackets.repeat(v.multiplier)).append(v.postBrackets);
-        }
         return result.toString();
     }
 

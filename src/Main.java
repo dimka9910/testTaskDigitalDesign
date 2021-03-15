@@ -1,6 +1,12 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-
-        System.out.println(new Element("2[a2[b]c3[d]]2[k1[f]3[s]]").getResult());
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            String str = scanner.nextLine();
+            if (CheckValidity.isValid(str))
+                System.out.println(new Element(str).getResult());
+        }
     }
 }
