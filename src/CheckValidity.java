@@ -33,13 +33,23 @@ public class CheckValidity {
                 return false;
             }
         }
+
         if (bracketsCounter != 0)
             return false;
         return true;
     }
 
+    /**
+     * ".*[0-9][^0-9\\[].*" - не существует такого числа после которого идёт не идёт
+     *                        открывающейся скобки или числа
+     * ".*[^0-9]\\[.*"      - не существует открывающейся скобки до которой идёт не число
+     * "\\[.*"              - нет одиночной скобки в начале
+     * ".*[0-9]"            - нет одиночного числа в конце
+     */
     public static boolean isCoefficientsOnPlace(String str){
-        return !str.matches(".*[0-9][^0-9\\[].*") && !str.matches(".*[^0-9]\\[.*")
-                && !str.matches("\\[.*") && !str.matches(".*[0-9]");
+        return !str.matches(".*[0-9][^0-9\\[].*") &&
+                !str.matches(".*[^0-9]\\[.*") &&
+                !str.matches("\\[.*") &&
+                !str.matches(".*[0-9]");
     }
 }
